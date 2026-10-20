@@ -13,22 +13,30 @@
 
 ## 运行
 
-在仓库根目录执行。首次运行需要下载约 3.4 GB 的图像和音频官方权重。若默认下载器长时间无进度，可先运行仓库内的并行下载脚本：
+两个脚本在本机文件夹 `D:\codex\languagebind-coal-mine-repro` 中：[prepare_weights.py](prepare_weights.py) 负责下载权重，[run_cpu_demo.py](run_cpu_demo.py) 负责计算相似度。GitHub 网页只能查看这些文件，运行要在本机完成。
+
+### 直接双击
+
+按 `Win + E` 打开文件资源管理器，在顶部地址栏粘贴 `D:\codex\languagebind-coal-mine-repro` 并回车。先双击 [01_download_weights.cmd](01_download_weights.cmd)，下载结束且显示 `Exit code: 0` 后，再双击 [02_run_demo.cmd](02_run_demo.cmd)。窗口最后会停住，便于查看结果。
+
+图像和音频官方权重合计约 3.4 GB。当前网络下载较慢；中断后重新双击第一个文件，会从已完成的分段继续下载。权重保存在 `D:\codex\languagebind_models`，不会上传到 GitHub。
+
+### 使用 PowerShell
+
+在开始菜单搜索并打开 PowerShell，依次输入：
 
 ```powershell
-D:\codex\envs\languagebind\Scripts\python.exe prepare_weights.py
+Set-Location 'D:\codex\languagebind-coal-mine-repro'
+& 'D:\codex\envs\languagebind\Scripts\python.exe' .\prepare_weights.py
+& 'D:\codex\envs\languagebind\Scripts\python.exe' .\run_cpu_demo.py
 ```
 
-再执行：
-
-```powershell
-D:\codex\envs\languagebind\Scripts\python.exe run_cpu_demo.py
-```
+第二条命令成功结束后再执行第三条。若 PowerShell 提示找不到 `prepare_weights.py`，说明当前目录不在仓库根目录，重新执行第一条命令。
 
 这会载入仓库附带的两张图像和两段音频，计算它们与两条英文描述的余弦相似度，也会计算图像与音频的相似度。每行分数较高的列代表该样本更接近的文本。可选的视频分支运行方式：
 
 ```powershell
-D:\codex\envs\languagebind\Scripts\python.exe run_cpu_demo.py --modalities image audio video
+& 'D:\codex\envs\languagebind\Scripts\python.exe' .\run_cpu_demo.py --modalities image audio video
 ```
 
 视频分支在 CPU 上可能明显更慢。原版 `inference.py` 固定使用 `cuda:0` 并一次载入五个非文本模态，适合有兼容 NVIDIA CUDA 环境时按官方说明运行。
