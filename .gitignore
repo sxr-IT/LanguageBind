@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+cache_dir/
+languagebind_models/
+.pytest_cache/
