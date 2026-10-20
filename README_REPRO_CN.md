@@ -1,5 +1,7 @@
 # LanguageBind 复现说明
 
+以语言为枢纽，把视频、音频、深度、红外映射到共享语义空间。
+
 本仓库基于官方 [LanguageBind](https://github.com/PKU-YuanGroup/LanguageBind)，起始提交为 `7070c53375661cdb235801176b564b45f96f0648`。原论文发表于 ICLR 2024。原始代码和样例保留在仓库中，新增 `run_cpu_demo.py` 用于没有 NVIDIA CUDA 的电脑做小规模推理。
 
 ## 本机环境
@@ -47,5 +49,3 @@ uv pip install --python D:\codex\envs\languagebind\Scripts\python.exe "setuptool
 ```
 
 模型权重会在首次运行时从 Hugging Face 下载。建议先运行默认的图像和音频小样例，再尝试视频。
-
-
